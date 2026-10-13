@@ -15,6 +15,9 @@ public class HelloController {
     @Value("${app.admin-password}")
     private String adminPassword;
 
+    @Value("${app.admin-username}")
+    private String adminUsername;
+
     @GetMapping("/")
     public ResponseEntity<String> hello(@RequestHeader(value = "Authorization", required = false) String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Basic ")) {
@@ -26,7 +29,7 @@ public class HelloController {
         String decoded = new String(Base64.getDecoder().decode(authHeader.substring(6)));
         String[] parts = decoded.split(":", 2);
 
-        if (parts.length == 2 && "admin".equals(parts[0]) && adminPassword.equals(parts[1])) {
+        if (parts.length == 2 && adminUsername.equals(parts[0]) && adminPassword.equals(parts[1])) {
             return ResponseEntity.ok("Hello, welcome to the secret case!");
         }
 
