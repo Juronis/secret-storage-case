@@ -11,3 +11,6 @@ target/
 .vscode/
 *.internal
 *.internal.md
+.env
+config/application-local.properties
+src/main/resources/application-local.properties
